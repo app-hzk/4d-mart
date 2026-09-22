@@ -6,21 +6,15 @@
 <meta name="theme-color" content="#16A34A" />
 <meta name="description" content="4D Mart — Katalog produk warung. Pesan mudah via WhatsApp." />
 
-<!-- ============ FAVICON (inline SVG shopping bag) ============ -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2316A34A'/%3E%3Cstop offset='100%25' stop-color='%23FACC15'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='112' fill='url(%23g)'/%3E%3Cpath fill='%23fff' transform='translate(96 96) scale(13.33)' d='M7 7V6a5 5 0 0 1 10 0v1h2.5A1.5 1.5 0 0 1 21 8.5v11A2.5 2.5 0 0 1 18.5 22h-13A2.5 2.5 0 0 1 3 19.5v-11A1.5 1.5 0 0 1 4.5 7H7zm2 0h6V6a3 3 0 1 0-6 0v1z'/%3E%3C/svg%3E" />
-
-<!-- ============ MANIFEST (inline, PWA) ============ -->
-<link rel="manifest" href='data:application/manifest+json,{"name":"4D Mart","short_name":"4D Mart","start_url":"./","display":"standalone","background_color":"%23F9FAFB","theme_color":"%2316A34A","icons":[{"src":"data:image/svg%2Bxml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27112%27 fill=%27%2316A34A%27/%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}' />
 
 <title>4D Mart — Katalog Produk</title>
 
-<!-- ============ FONTS & ICONS ============ -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-<!-- ============ CSS ============ -->
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -115,7 +109,6 @@ input{font-family:inherit}
 .card__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .card__ribbon{position:absolute;top:8px;left:8px;padding:4px 10px;border-radius:var(--r-full);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;display:inline-flex;align-items:center;gap:4px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
 .card__ribbon i{font-size:.6rem}
-.card__ribbon--best{background:var(--accent);color:var(--gray-900)}
 .card__ribbon--out{background:var(--danger);color:#fff}
 .card__body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
 .card__name{font-size:.85rem;font-weight:700;line-height:1.3;color:var(--gray-900);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.2em}
@@ -134,6 +127,14 @@ input{font-family:inherit}
 .empty__icon{width:72px;height:72px;margin:0 auto 16px;border-radius:24px;background:var(--grad-soft);display:grid;place-items:center;font-size:1.6rem;color:var(--primary)}
 .empty__text{font-weight:700;font-size:.95rem;color:var(--text-2)}
 .empty__hint{font-size:.78rem;margin-top:4px}
+
+/* SKELETON */
+.skeleton{background:var(--surface);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
+.skeleton__img{aspect-ratio:1/1;background:linear-gradient(90deg,var(--gray-100) 25%,var(--gray-200) 50%,var(--gray-100) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
+.skeleton__body{padding:12px;display:flex;flex-direction:column;gap:8px}
+.skeleton__line{height:12px;border-radius:6px;background:linear-gradient(90deg,var(--gray-100) 25%,var(--gray-200) 50%,var(--gray-100) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
+.skeleton__line--short{width:60%}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
 /* BOTTOM NAV */
 .bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:95;height:calc(var(--bottomnav-h) + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);background:rgba(255,255,255,.97);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr)}
@@ -233,11 +234,13 @@ input{font-family:inherit}
 .toast i{color:var(--accent);font-size:.9rem}
 .toast span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* IMG FALLBACK */
+.img-fallback{display:grid;place-items:center;background:var(--gray-100);color:var(--text-3);font-size:1.5rem;width:100%;height:100%}
 </style>
 </head>
 <body>
 
-<!-- APPBAR -->
 <header class="appbar" id="appbar">
   <div class="appbar__brand">
     <div class="appbar__logo"><i class="fas fa-bag-shopping"></i></div>
@@ -252,7 +255,6 @@ input{font-family:inherit}
   </button>
 </header>
 
-<!-- SEARCH -->
 <div class="searchbar">
   <div class="searchbar__inner">
     <i class="fas fa-magnifying-glass searchbar__icon"></i>
@@ -263,7 +265,6 @@ input{font-family:inherit}
   </div>
 </div>
 
-<!-- AD -->
 <div class="adbar">
   <div class="adbar__inner">
     <span class="adbar__pill"><i class="fas fa-bolt"></i> Promo</span>
@@ -271,10 +272,8 @@ input{font-family:inherit}
   </div>
 </div>
 
-<!-- CHIPS -->
 <div class="chips" id="chips"></div>
 
-<!-- CONTENT -->
 <main class="content">
   <div class="content__head">
     <h2 class="content__title"><i class="fas fa-store"></i> Produk</h2>
@@ -288,7 +287,6 @@ input{font-family:inherit}
   </div>
 </main>
 
-<!-- BOTTOM NAV -->
 <nav class="bottomnav">
   <button class="nav-item nav-item--active" data-nav="home">
     <i class="fas fa-house"></i><span>Beranda</span>
@@ -305,7 +303,6 @@ input{font-family:inherit}
   </button>
 </nav>
 
-<!-- MODAL -->
 <div class="modal" id="modal" hidden>
   <div class="modal__backdrop" data-close></div>
   <div class="modal__panel" role="dialog" aria-modal="true">
@@ -314,7 +311,6 @@ input{font-family:inherit}
   </div>
 </div>
 
-<!-- DRAWER -->
 <aside class="drawer" id="drawer" hidden>
   <div class="drawer__backdrop" data-close></div>
   <div class="drawer__panel" role="dialog" aria-modal="true">
@@ -335,38 +331,37 @@ input{font-family:inherit}
   </div>
 </aside>
 
-<!-- TOAST -->
 <div class="toast" id="toast" hidden>
   <i class="fas fa-circle-check"></i><span id="toastMsg"></span>
 </div>
 
-<!-- ============ JS ============ -->
 <script>
 /* ============================================================
-   4D MART — App v0.1.0 (single-file)
+   4D MART — Catalog App v0.2.0
    ============================================================ */
 
+/* ============ KONFIGURASI ============ */
 const CONFIG = {
-  // ⚙️ GANTI 2 BARIS INI:
-  SHEET_ID: '1wQn5TNnUWq7zHA-69pw1i3svSk_3qOL_cOCLvMe4NMY',                      // ← Kosongkan = pakai data contoh. Isi = ambil dari Google Sheet
-  WA_NUMBER: '6285863710179',        // ← Nomor WA penjual, format 62xxx
+  // ⚙️ GANTI INI:
+  SHEET_ID: '',                       // Kosongkan = pakai data contoh. Isi = ambil dari Google Sheet
   SHEET_NAME: 'Products',
+  WA_NUMBER: '6281234567890',         // Nomor WA penjual, format 62xxx
   STORE_NAME: '4D Mart',
 };
 
-/* ---------- FALLBACK DATA (contoh awal) ---------- */
+/* ============ FALLBACK DATA ============ */
 const FALLBACK_PRODUCTS = [
-  {id:'p-001',name:'Indomie Goreng Original',price:3500,stock:48,category:'Makanan',description:'Mie instan legendaris. Praktis, gurih, cocok kapan saja.',images:['https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=600&q=80'],link:''},
-  {id:'p-002',name:'Kopi Kapal Api Special 165g',price:12500,stock:24,category:'Minuman',description:'Kopi bubuk Kapal Api Special. Aroma kuat, rasa mantap.',images:['https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&q=80','https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80'],link:''},
-  {id:'p-003',name:'Teh Pucuk Harum 350ml',price:4000,stock:60,category:'Minuman',description:'Teh melati segar dalam kemasan botol. Dingin lebih nikmat.',images:['https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80'],link:''},
-  {id:'p-004',name:'Beras Premium 5kg',price:68000,stock:0,category:'Sembako',description:'Beras premium pulen dan wangi. Kemasan 5 kilogram.',images:['https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80'],link:''},
-  {id:'p-005',name:'Sabun Lifebuoy Cair 450ml',price:28500,stock:12,category:'Perawatan',description:'Sabun cair antibakteri. Melindungi dari kuman dan bakteri.',images:['https://images.unsplash.com/photo-1584305574647-0cc949a2bb9f?w=600&q=80'],link:''},
-  {id:'p-006',name:'Roti Tawar Sari Roti',price:16000,stock:8,category:'Makanan',description:'Roti tawar lembut dan fresh. Cocok untuk sarapan.',images:['https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80'],link:''},
-  {id:'p-007',name:'Telur Ayam Negeri 1kg',price:32000,stock:15,category:'Sembako',description:'Telur ayam negeri segar. Kemasan 1 kilogram.',images:['https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=600&q=80'],link:''},
-  {id:'p-008',name:'Aqua Air Mineral 600ml',price:3500,stock:96,category:'Minuman',description:'Air mineral dalam kemasan botol 600ml.',images:['https://images.unsplash.com/photo-1616118132534-381148898bb4?w=600&q=80'],link:''},
+  {id:'p-001',name:'Indomie Goreng Original',price:3500,stock:48,category:'Makanan',description:'Mie instan legendaris. Praktis, gurih, cocok kapan saja.',images:['https://picsum.photos/seed/indomie/600/600'],link:''},
+  {id:'p-002',name:'Kopi Kapal Api Special 165g',price:12500,stock:24,category:'Minuman',description:'Kopi bubuk Kapal Api Special. Aroma kuat, rasa mantap.',images:['https://picsum.photos/seed/kopi1/600/600','https://picsum.photos/seed/kopi2/600/600'],link:''},
+  {id:'p-003',name:'Teh Pucuk Harum 350ml',price:4000,stock:60,category:'Minuman',description:'Teh melati segar dalam kemasan botol. Dingin lebih nikmat.',images:['https://picsum.photos/seed/teh/600/600'],link:''},
+  {id:'p-004',name:'Beras Premium 5kg',price:68000,stock:0,category:'Sembako',description:'Beras premium pulen dan wangi. Kemasan 5 kilogram.',images:['https://picsum.photos/seed/beras/600/600'],link:''},
+  {id:'p-005',name:'Sabun Lifebuoy Cair 450ml',price:28500,stock:12,category:'Perawatan',description:'Sabun cair antibakteri. Melindungi dari kuman dan bakteri.',images:['https://picsum.photos/seed/sabun/600/600'],link:''},
+  {id:'p-006',name:'Roti Tawar Sari Roti',price:16000,stock:8,category:'Makanan',description:'Roti tawar lembut dan fresh. Cocok untuk sarapan.',images:['https://picsum.photos/seed/roti/600/600'],link:''},
+  {id:'p-007',name:'Telur Ayam Negeri 1kg',price:32000,stock:15,category:'Sembako',description:'Telur ayam negeri segar. Kemasan 1 kilogram.',images:['https://picsum.photos/seed/telur/600/600'],link:''},
+  {id:'p-008',name:'Aqua Air Mineral 600ml',price:3500,stock:96,category:'Minuman',description:'Air mineral dalam kemasan botol 600ml.',images:['https://picsum.photos/seed/aqua/600/600'],link:''},
 ];
 
-/* ---------- STATE ---------- */
+/* ============ STATE ============ */
 const state = {
   products: [],
   cart: loadCart(),
@@ -374,7 +369,7 @@ const state = {
   query: '',
 };
 
-/* ---------- HELPERS ---------- */
+/* ============ HELPERS ============ */
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
 
@@ -398,11 +393,19 @@ function saveCart() {
   localStorage.setItem('4dmart_cart', JSON.stringify(state.cart));
 }
 
-/* ---------- FETCH PRODUCTS ---------- */
+/* Escape HTML untuk keamanan */
+function esc(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ============ FETCH PRODUCTS ============ */
 async function fetchProducts() {
-  // Jika SHEET_ID kosong → pakai fallback
   if (!CONFIG.SHEET_ID) {
-    console.info('https://script.google.com/macros/s/AKfycbxP21WXPKJmxLf2JxAJZopYpZmpWNMSM1NfXZUs2ZJGKc0zoxoTXnoVdV8pQ5-WvswWnQ/exec');
+    console.info('[4D Mart] SHEET_ID kosong — pakai data contoh.');
+    await new Promise((r) => setTimeout(r, 400)); // simulasi loading
     return FALLBACK_PRODUCTS;
   }
   try {
@@ -425,24 +428,36 @@ async function fetchProducts() {
         stock: Number(o.stock) || 0,
         category: o.category || 'Lainnya',
         description: o.description || '',
-        images: images.length ? images : ['https://placehold.co/600x600/F3F4F6/9CA3AF?text=No+Image'],
+        images: images.length ? images : [],
         link: o.link || '',
       };
     });
   } catch (err) {
     console.warn('[4D Mart] Gagal ambil dari Sheet, pakai fallback:', err);
+    showToast('Gagal memuat dari server, pakai data contoh');
     return FALLBACK_PRODUCTS;
   }
 }
 
-/* ---------- STOCK STATUS ---------- */
+/* ============ IMAGE RENDER (dengan fallback) ============ */
+function renderImgTag(src, alt, cls = '') {
+  if (!src) {
+    return `<div class="img-fallback ${cls}"><i class="fas fa-image"></i></div>`;
+  }
+  const safeSrc = esc(src);
+  const safeAlt = esc(alt);
+  return `<img src="${safeSrc}" alt="${safeAlt}" loading="lazy" class="${cls}"
+    onerror="this.outerHTML='<div class=\\'img-fallback\\'><i class=\\'fas fa-image\\'></i></div>'" />`;
+}
+
+/* ============ STOCK STATUS ============ */
 function stockStatus(stock) {
   return stock > 0
     ? { label:'Tersedia', cls:'ok', icon:'fa-circle-check' }
     : { label:'Habis',    cls:'out', icon:'fa-circle-xmark' };
 }
 
-/* ---------- CHIPS ---------- */
+/* ============ CHIPS ============ */
 function renderChips() {
   const cats = ['Semua', ...new Set(state.products.map((p) => p.category))];
   const icons = {
@@ -450,12 +465,23 @@ function renderChips() {
     'Sembako':'fa-basket-shopping','Perawatan':'fa-soap','Snack':'fa-cookie-bite',
   };
   $('#chips').innerHTML = cats.map((c) => `
-    <button class="chip ${c === state.category ? 'chip--active' : ''}" data-cat="${c}">
-      <i class="fas ${icons[c] || 'fa-tag'}"></i>${c}
+    <button class="chip ${c === state.category ? 'chip--active' : ''}" data-cat="${esc(c)}">
+      <i class="fas ${icons[c] || 'fa-tag'}"></i>${esc(c)}
     </button>`).join('');
 }
 
-/* ---------- GRID ---------- */
+/* ============ GRID ============ */
+function renderSkeleton() {
+  $('#grid').innerHTML = Array.from({length: 6}).map(() => `
+    <div class="skeleton">
+      <div class="skeleton__img"></div>
+      <div class="skeleton__body">
+        <div class="skeleton__line"></div>
+        <div class="skeleton__line skeleton__line--short"></div>
+      </div>
+    </div>`).join('');
+}
+
 function renderGrid() {
   const list = state.products.filter((p) => {
     const matchCat = state.category === 'Semua' || p.category === state.category;
@@ -476,19 +502,20 @@ function renderGrid() {
     const s = stockStatus(p.stock);
     const out = p.stock <= 0;
     const ribbon = out ? `<span class="card__ribbon card__ribbon--out"><i class="fas fa-ban"></i>Habis</span>` : '';
+    const img = p.images[0] ? renderImgTag(p.images[0], p.name) : `<div class="img-fallback"><i class="fas fa-image"></i></div>`;
     return `
-      <article class="card" data-id="${p.id}" style="animation-delay:${i * 0.03}s">
+      <article class="card" data-id="${esc(p.id)}" style="animation-delay:${i * 0.03}s">
         <div class="card__img">
-          <img src="${p.images[0]}" alt="${p.name}" loading="lazy" onerror="this.src='https://placehold.co/600x600/F3F4F6/9CA3AF?text=No+Image'"/>
+          ${img}
           ${ribbon}
         </div>
         <div class="card__body">
-          <h3 class="card__name">${p.name}</h3>
+          <h3 class="card__name">${esc(p.name)}</h3>
           <p class="card__price">${formatRp(p.price)}</p>
           <span class="card__status card__status--${s.cls}">
             <i class="fas ${s.icon}"></i>${s.label}
           </span>
-          <button class="card__btn" data-add="${p.id}" ${out ? 'disabled' : ''}>
+          <button class="card__btn" data-add="${esc(p.id)}" ${out ? 'disabled' : ''}>
             <i class="fas ${out ? 'fa-ban' : 'fa-cart-plus'}"></i>
             ${out ? 'Stok Habis' : 'Keranjang'}
           </button>
@@ -497,16 +524,16 @@ function renderGrid() {
   }).join('');
 }
 
-/* ---------- MODAL DETAIL ---------- */
+/* ============ MODAL DETAIL ============ */
 function openDetail(id) {
   const p = state.products.find((x) => x.id === id);
   if (!p) return;
   const s = stockStatus(p.stock);
   const out = p.stock <= 0;
 
-  const slides = p.images.map((img) =>
-    `<div class="pd__slide"><img src="${img}" alt="${p.name}" onerror="this.src='https://placehold.co/600x600/F3F4F6/9CA3AF?text=No+Image'"/></div>`
-  ).join('');
+  const slides = p.images.length
+    ? p.images.map((img) => `<div class="pd__slide">${renderImgTag(img, p.name)}</div>`).join('')
+    : `<div class="pd__slide"><div class="img-fallback"><i class="fas fa-image"></i></div></div>`;
 
   const dots = p.images.length > 1
     ? `<div class="pd__dots" id="pdDots">${p.images.map((_, i) =>
@@ -518,7 +545,7 @@ function openDetail(id) {
       ${dots}
     </div>
     <div class="pd__body">
-      <h2 class="pd__name">${p.name}</h2>
+      <h2 class="pd__name">${esc(p.name)}</h2>
       <p class="pd__price">${formatRp(p.price)}</p>
       <div class="pd__stats">
         <div class="pd__stat">
@@ -529,13 +556,13 @@ function openDetail(id) {
         </div>
         <div class="pd__stat">
           <span class="pd__stat-label">Kategori</span>
-          <span class="pd__stat-value">${p.category}</span>
+          <span class="pd__stat-value">${esc(p.category)}</span>
         </div>
       </div>
       <div class="pd__section-title">Deskripsi</div>
-      <p class="pd__desc">${p.description || 'Belum ada deskripsi produk.'}</p>
+      <p class="pd__desc">${esc(p.description) || 'Belum ada deskripsi produk.'}</p>
       <div class="pd__actions">
-        <button class="btn btn--primary btn--full" data-add="${p.id}" ${out ? 'disabled' : ''}>
+        <button class="btn btn--primary btn--full" data-add="${esc(p.id)}" ${out ? 'disabled' : ''}>
           <i class="fas ${out ? 'fa-ban' : 'fa-cart-plus'}"></i>
           ${out ? 'Stok Habis' : 'Tambah ke Keranjang'}
         </button>
@@ -551,7 +578,7 @@ function openDetail(id) {
     track.addEventListener('scroll', () => {
       const idx = Math.round(track.scrollLeft / track.clientWidth);
       dotEls.forEach((d, i) => d.classList.toggle('pd__dot--active', i === idx));
-    });
+    }, { passive: true });
   }
 }
 
@@ -560,7 +587,7 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-/* ---------- CART ---------- */
+/* ============ CART ============ */
 function addToCart(id, qty = 1) {
   const p = state.products.find((x) => x.id === id);
   if (!p || p.stock <= 0) return showToast('Stok habis');
@@ -569,7 +596,7 @@ function addToCart(id, qty = 1) {
   if (item) item.qty = Math.min(item.qty + qty, p.stock);
   else state.cart.push({
     id: p.id, name: p.name, price: p.price,
-    image: p.images[0], link: p.link, qty: Math.min(qty, p.stock),
+    image: p.images[0] || '', link: p.link, qty: Math.min(qty, p.stock),
   });
 
   saveCart();
@@ -620,26 +647,29 @@ function updateCartUI() {
     return;
   }
 
-  body.innerHTML = state.cart.map((i) => `
-    <div class="ci">
-      <div class="ci__img"><img src="${i.image}" alt="${i.name}" onerror="this.src='https://placehold.co/100x100/F3F4F6/9CA3AF?text=?'"/></div>
-      <div class="ci__info">
-        <div class="ci__name">${i.name}</div>
-        <div class="ci__price">${formatRp(i.price)}</div>
-        <div class="ci__ctrls">
-          <button class="ci__qty-btn" data-dec="${i.id}"><i class="fas fa-minus"></i></button>
-          <span class="ci__qty">${i.qty}</span>
-          <button class="ci__qty-btn" data-inc="${i.id}"><i class="fas fa-plus"></i></button>
-          <button class="ci__remove" data-del="${i.id}">Hapus</button>
+  body.innerHTML = state.cart.map((i) => {
+    const img = i.image ? renderImgTag(i.image, i.name) : `<div class="img-fallback"><i class="fas fa-image"></i></div>`;
+    return `
+      <div class="ci">
+        <div class="ci__img">${img}</div>
+        <div class="ci__info">
+          <div class="ci__name">${esc(i.name)}</div>
+          <div class="ci__price">${formatRp(i.price)}</div>
+          <div class="ci__ctrls">
+            <button class="ci__qty-btn" data-dec="${esc(i.id)}"><i class="fas fa-minus"></i></button>
+            <span class="ci__qty">${i.qty}</span>
+            <button class="ci__qty-btn" data-inc="${esc(i.id)}"><i class="fas fa-plus"></i></button>
+            <button class="ci__remove" data-del="${esc(i.id)}">Hapus</button>
+          </div>
         </div>
-      </div>
-    </div>`).join('');
+      </div>`;
+  }).join('');
 
   $('#cartTotal').textContent = formatRp(cartTotal());
   foot.hidden = false;
 }
 
-/* ---------- CHECKOUT ---------- */
+/* ============ CHECKOUT ============ */
 function checkout() {
   if (!state.cart.length) return showToast('Keranjang kosong');
 
@@ -661,7 +691,7 @@ function checkout() {
   window.open(url, '_blank');
 }
 
-/* ---------- DRAWER ---------- */
+/* ============ DRAWER ============ */
 function openDrawer() {
   $('#drawer').hidden = false;
   document.body.style.overflow = 'hidden';
@@ -672,7 +702,7 @@ function closeDrawer() {
   document.body.style.overflow = '';
 }
 
-/* ---------- BOTTOM NAV ---------- */
+/* ============ BOTTOM NAV ============ */
 function bindBottomNav() {
   $$('.nav-item').forEach((item) => {
     item.addEventListener('click', () => {
@@ -693,7 +723,7 @@ function bindBottomNav() {
   });
 }
 
-/* ---------- EVENTS ---------- */
+/* ============ EVENTS ============ */
 function bind() {
   const appbar = $('#appbar');
   window.addEventListener('scroll', () => {
@@ -759,9 +789,9 @@ function bind() {
   bindBottomNav();
 }
 
-/* ---------- INIT ---------- */
+/* ============ INIT ============ */
 async function init() {
-  $('#grid').innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#9CA3AF;font-weight:600;">Memuat produk...</p>';
+  renderSkeleton();
   try {
     state.products = await fetchProducts();
   } catch (e) {
